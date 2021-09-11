@@ -1,3 +1,4 @@
+using Fluxor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,6 +15,16 @@ namespace BlazorBingo
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+            builder.Services.AddFluxor(opt =>
+            {
+#if !DEBUG
+         opt.ScanAssemblies(typeof(Program).Assembly);
+#else
+                opt.ScanAssemblies(typeof(Program).Assembly)
+                    .UseReduxDevTools();
+#endif
+            });
 
             await builder.Build().RunAsync();
         }
