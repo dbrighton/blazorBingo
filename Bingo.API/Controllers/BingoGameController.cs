@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bingo.API.Hubs;
+using Bingo.Common.Constants;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
 namespace Bingo.API.Controllers
@@ -13,17 +16,22 @@ namespace Bingo.API.Controllers
     public class BingoGameController : ControllerBase
     {
         private readonly ILogger<BingoGameController> _logger;
+        private readonly IHubContext<BingoHub> _hub;
 
-        public BingoGameController(ILogger<BingoGameController> logger)
+        public BingoGameController(ILogger<BingoGameController> logger, IHubContext<BingoHub> hub)
         {
             _logger = logger;
+            _hub = hub;
         }
 
-        [HttpPost]
-        [Route("start")]
-        public void StartNewGame()
+        [HttpGet]
+        [Route("draw")]
+        public void Draw()
         {
-            _logger.LogInformation($"In StartNewGame");
+            _logger.LogInformation($"In Draw");
+            BingoHub.DrawRandomBall();
         }
+
+        
     }
 }

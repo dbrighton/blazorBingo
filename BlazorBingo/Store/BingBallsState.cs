@@ -29,11 +29,8 @@ namespace BlazorBingo.Store
             {
                 for (int i = 1; i <= 15; i++)
                 {
-                    var ball = new BingoBall
-                    {
-                        Letter = letter,
-                        BallNumber = i
-                    };
+                    var ball = new BingoBall(){BallNumber = i,Letter = letter};
+                    
                     listOfBalls.Add(ball);
                 }
             }

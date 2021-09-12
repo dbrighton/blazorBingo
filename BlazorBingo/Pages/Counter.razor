@@ -2,9 +2,11 @@
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @using Fluxor
 @using BlazorBingo.Store
+@using Bingo.Common.Services
 
 @inject IState<BlazorBingo.Store.BingBallsState> _bingBallsState
 @inject IDispatcher _dispatcher
+@inject SignalRClientBingoService _service
 
 <h1>Counter</h1>
 
@@ -17,6 +19,8 @@
 
     private void IncrementCount()
     {
+        var balls = _service.BingoBalls;
+        Console.WriteLine(balls);
         _dispatcher.Dispatch(new DrawBingoBallAction() );
     }
 }
