@@ -1,16 +1,22 @@
 @page "/counter"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@using Fluxor
+@using BlazorBingo.Store
+
+@inject IState<BlazorBingo.Store.BingBallsState> _bingBallsState
+@inject IDispatcher _dispatcher
 
 <h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
+<p>Current count: </p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
+   
 
     private void IncrementCount()
     {
-        currentCount++;
+        _dispatcher.Dispatch(new DrawBingoBallAction() );
     }
 }

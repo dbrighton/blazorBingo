@@ -1,18 +1,16 @@
-﻿using Bingo.Common;
-using System.Collections.Generic;
+﻿using Bingo.Common.Models;
 using Fluxor;
+using System.Collections.Generic;
 
 namespace BlazorBingo.Store
 {
-    public class BingBallsState
+    public record BingBallsState
     {
-       
         public List<BingoBall> BingoBalls { get; init; }
     }
 
     public class BingBallsFeatureState : Feature<BingBallsState>
     {
-        public List<BingoBall>Balls { get; set; }
         public override string GetName() => nameof(BingBallsState);
 
         protected override BingBallsState GetInitialState()
@@ -26,7 +24,7 @@ namespace BlazorBingo.Store
                 'G',
                 'O'
             };
-            
+
             foreach (var letter in letters)
             {
                 for (int i = 1; i <= 15; i++)
@@ -39,8 +37,6 @@ namespace BlazorBingo.Store
                     listOfBalls.Add(ball);
                 }
             }
-            
-          
 
             return new BingBallsState()
             {
